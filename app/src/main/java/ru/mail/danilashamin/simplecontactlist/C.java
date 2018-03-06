@@ -7,5 +7,5 @@ package ru.mail.danilashamin.simplecontactlist;
 public class C {
     public static final String MALE_GENDER = "male";
     public static final String FEMALE_GENDER = "female";
-    public static final String API_BASE_URL = "https://randomuser.me/api/";
+    public static final String API_BASE_URL = "https://randomuser.me/";
 }

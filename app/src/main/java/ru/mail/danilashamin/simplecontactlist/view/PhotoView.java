@@ -1,15 +1,16 @@
 package ru.mail.danilashamin.simplecontactlist.view;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.RectF;
-import android.graphics.Shader;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.util.AttributeSet;
+
+import ru.mail.danilashamin.simplecontactlist.R;
 
 /**
  * Created by Danil on 06.03.2018 on 16:48.
@@ -41,24 +42,28 @@ public class PhotoView extends android.support.v7.widget.AppCompatImageView {
         paint = new Paint();
     }
 
-    public void setPhoto(Bitmap bitmap) {
-        BitmapShader shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        paint.setShader(shader);
+    public void setPhoto(Bitmap bitmap, PhotoShapeForm shapeForm) {
+        Bitmap mask = BitmapFactory.decodeResource(getContext().getResources(), shapeForm == PhotoShapeForm.HEART ? R.drawable.heart_mask : R.drawable.star_mask);
+
+        Bitmap result = Bitmap.createBitmap(mask.getWidth(), mask.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas tempCanvas = new Canvas(result);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
+        tempCanvas.drawBitmap(bitmap, 0, 0, null);
+        tempCanvas.drawBitmap(mask, 0, 0, paint);
+        paint.setXfermode(null);
+
         invalidate();
     }
 
-    public void setShapeForm(PhotoShapeForm shapeForm) {
-        this.shapeForm = shapeForm;
-    }
 
-    @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {
         if (shapeForm != null) {
             switch (shapeForm) {
                 case STAR:
-                    float mid = getWidth() / 2;
-                    float min = Math.min(getWidth(), getHeight());
+                    float mid = canvas.getWidth() / 2;
+                    float min = Math.min(canvas.getWidth(), canvas.getHeight());
                     float half = min / 2;
                     mid = mid - half;
 
@@ -77,25 +82,30 @@ public class PhotoView extends android.support.v7.widget.AppCompatImageView {
                     break;
                 case HEART:
                     path.reset();
-                    float length = 100;
-                    float x = canvas.getWidth() / 2;
-                    float y = canvas.getHeight();
 
-                    canvas.rotate(45, x, y);
+                    int top = 0;
+                    int left = 0;
 
-                    path.moveTo(x, y);
-                    path.lineTo(x - length, y);
-                    path.arcTo(new RectF(x - length - (length / 2), y - length, x - (length / 2), y), 90, 180);
-                    path.arcTo(new RectF(x - length, y - length - (length / 2), x, y - (length / 2)), 180, 180);
-                    path.lineTo(x, y);
+                    int WIDTH = 200;
+                    int HEIGHT = 200;
+                    path.moveTo(left + WIDTH / 2, top + HEIGHT / 2); // Starting point
+                    // Create a cubic Bezier cubic left path
+                    path.cubicTo(left + WIDTH / 5, top,
+                            left + WIDTH / 4, top + 4 * HEIGHT / 5,
+                            left + WIDTH / 2, top + HEIGHT);
+                    // This is right Bezier cubic path
+                    path.cubicTo(left + 3 * WIDTH / 4, top + 4 * HEIGHT / 5,
+                            left + 4 * WIDTH / 5, top,
+                            left + WIDTH / 2, top + HEIGHT / 4);
+
                     path.close();
                     canvas.drawPath(path, paint);
                     break;
+
             }
         }
 
 
         super.onDraw(canvas);
     }
-
 }

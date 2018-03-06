@@ -23,7 +23,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.mail.danilashamin.simplecontactlist.R;
 import ru.mail.danilashamin.simplecontactlist.contact.Contact;
-import ru.mail.danilashamin.simplecontactlist.contact.Name;
 import ru.mail.danilashamin.simplecontactlist.view.PhotoShapeForm;
 import ru.mail.danilashamin.simplecontactlist.view.PhotoView;
 
@@ -68,8 +67,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        holder.ivPhoto.setPhoto(((BitmapDrawable) resource).getBitmap());
-                        holder.ivPhoto.setShapeForm(PhotoShapeForm.getShapeForm(currentContact.getGender()));
+                        holder.ivPhoto.setPhoto(((BitmapDrawable) resource).getBitmap(), PhotoShapeForm.getShapeForm(currentContact.getGender()));
                         return false;
                     }
                 }).submit();

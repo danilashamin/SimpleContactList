@@ -1,21 +1,24 @@
-package ru.mail.danilashamin.simplecontactlist;
+package ru.mail.danilashamin.simplecontactlist.adapters;
 
-import android.content.Context;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.github.siyamed.shapeimageview.HeartImageView;
 import com.github.siyamed.shapeimageview.StarImageView;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ru.mail.danilashamin.simplecontactlist.R;
+import ru.mail.danilashamin.simplecontactlist.contact.Contact;
+import ru.mail.danilashamin.simplecontactlist.contact.Name;
 
 import static ru.mail.danilashamin.simplecontactlist.C.MALE_GENDER;
 
@@ -25,14 +28,9 @@ import static ru.mail.danilashamin.simplecontactlist.C.MALE_GENDER;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ContactViewHolder> {
 
-    @Expose
-    @SerializedName("results")
-    private List<Contact> results;
-    private Context context;
     private List<Contact> contactList;
 
-    RecyclerViewAdapter(Context context, List<Contact> contactList) {
-        this.context = context;
+    public RecyclerViewAdapter(List<Contact> contactList) {
         this.contactList = contactList;
     }
 
@@ -46,13 +44,33 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(ContactViewHolder holder, int position) {
         Contact currentContact = contactList.get(position);
 
-        if (currentContact.getGender().equals(MALE_GENDER)) {
+        setImageViewInvisible(currentContact, holder);
+        Name name = currentContact.getName();
+        holder.tvName.setText(String.format("%s %s %s", name.getTitle(), name.getFirstName(), name.getLastName()));
+
+        Glide
+                .with(holder.itemView)
+                .load(currentContact.getPicture().getLarge())
+                .apply(new RequestOptions().
+                        placeholder(R.drawable.progress_animation).
+                        error(R.drawable.error))
+                .into(getImageView(currentContact, holder));
+    }
+
+    private void setImageViewInvisible(Contact contact, ContactViewHolder holder) {
+        if (contact.getGender().equals(MALE_GENDER)) {
             holder.ivHeart.setMaxWidth(0);
         } else {
             holder.ivStar.setMaxWidth(0);
         }
+    }
 
-
+    private ImageView getImageView(Contact contact, ContactViewHolder holder) {
+        if (contact.getGender().equals(MALE_GENDER)) {
+            return holder.ivStar;
+        } else {
+            return holder.ivHeart;
+        }
     }
 
     @Override
@@ -60,21 +78,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return contactList.size();
     }
 
-    public List<Contact> getResults() {
-        return results;
-    }
-
-    public void setResults(List<Contact> results) {
-        this.results = results;
-    }
-
-    public Context getContext() {
-        return context;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
 
     static class ContactViewHolder extends RecyclerView.ViewHolder {
 

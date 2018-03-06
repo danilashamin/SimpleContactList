@@ -1,4 +1,4 @@
-package ru.mail.danilashamin.simplecontactlist.contact;
+package ru.mail.danilashamin.simplecontactlist.http.contact;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

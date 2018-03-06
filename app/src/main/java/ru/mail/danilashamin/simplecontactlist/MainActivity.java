@@ -17,7 +17,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.mail.danilashamin.simplecontactlist.adapters.RecyclerViewAdapter;
-import ru.mail.danilashamin.simplecontactlist.contact.Results;
+import ru.mail.danilashamin.simplecontactlist.http.Results;
 import ru.mail.danilashamin.simplecontactlist.http.RequestInterface;
 
 import static ru.mail.danilashamin.simplecontactlist.C.API_BASE_URL;

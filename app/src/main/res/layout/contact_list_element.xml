@@ -2,23 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-
+    android:layout_margin="7dp"
     android:background="@drawable/list_element_stroke"
     android:orientation="horizontal"
-    android:padding="5dp">
+    android:padding="10dp">
 
-    <com.github.siyamed.shapeimageview.StarImageView
-        android:id="@+id/ivStar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher_round" />
-
-    <com.github.siyamed.shapeimageview.HeartImageView
-        android:id="@+id/ivHeart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher_round" />
+    <ru.mail.danilashamin.simplecontactlist.view.PhotoView
+        android:id="@+id/ivPhoto"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp" />
 
 
     <android.support.v7.widget.AppCompatTextView

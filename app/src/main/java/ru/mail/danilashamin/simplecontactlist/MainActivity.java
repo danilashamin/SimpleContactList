@@ -1,6 +1,7 @@
 package ru.mail.danilashamin.simplecontactlist;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         Call<Results> contacts = requestInterface.contacts(40, "gender,name,picture", "noinfo");
         contacts.enqueue(new Callback<Results>() {
             @Override
-            public void onResponse(Call<Results> call, Response<Results> response) {
+            public void onResponse(@NonNull Call<Results> call, @NonNull Response<Results> response) {
                 mainContactList.setHasFixedSize(true);
 
                 mLayoutManager = new LinearLayoutManager(MainActivity.this);
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Results> call, Throwable t) {
+            public void onFailure(@NonNull Call<Results> call, @NonNull Throwable t) {
                 Log.d("failure", "failed to load, error: " + t.getMessage());
             }
         });

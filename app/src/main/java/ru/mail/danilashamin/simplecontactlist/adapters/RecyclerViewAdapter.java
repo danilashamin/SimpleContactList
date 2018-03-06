@@ -53,15 +53,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 .load(currentContact.getPicture().getLarge())
                 .apply(new RequestOptions().
                         placeholder(R.drawable.progress_animation).
-                        error(R.drawable.error))
+                        error(R.drawable.error)
+                        .centerCrop())
                 .into(getImageView(currentContact, holder));
     }
 
     private void setImageViewInvisible(Contact contact, ContactViewHolder holder) {
         if (contact.getGender().equals(MALE_GENDER)) {
-            holder.ivHeart.setMaxWidth(0);
+            ((ViewGroup) holder.itemView).removeView(holder.ivHeart);
         } else {
-            holder.ivStar.setMaxWidth(0);
+            ((ViewGroup) holder.itemView).removeView(holder.ivStar);
         }
     }
 

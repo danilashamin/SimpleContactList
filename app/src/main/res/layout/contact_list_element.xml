@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
+
     android:background="@drawable/list_element_stroke"
     android:orientation="horizontal"
     android:padding="5dp">
@@ -24,10 +25,12 @@
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginStart="10dp"
         android:fontFamily="sans-serif"
         android:text="Danil"
-        android:textSize="25sp" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="15sp" />
 
 
 </LinearLayout>

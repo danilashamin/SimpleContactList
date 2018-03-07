@@ -72,7 +72,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         MaskedDrawableBitmap maskedBitmap = new MaskedDrawableBitmap();
                         maskedBitmap.setPictureBitmap(((BitmapDrawable) resource.getCurrent()).getBitmap());
                         maskedBitmap.setMaskBitmap(BitmapFactory.decodeResource(holder.itemView.getContext().getResources(),
-                                BitmapMaskForm.getMaskForm(currentContact.getGender()) == BitmapMaskForm.STAR ? R.drawable.star_mask : R.drawable.heart_mask));
+                                BitmapMaskForm.getMaskForm(currentContact.getGender()) == BitmapMaskForm.STAR ? R.drawable.star_mask : R.drawable.heart_mask).extractAlpha());
                         holder.ivPhoto.setImageDrawable(maskedBitmap);
                         return false;
                     }

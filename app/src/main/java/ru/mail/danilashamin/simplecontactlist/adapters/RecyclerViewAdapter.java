@@ -1,9 +1,11 @@
 package ru.mail.danilashamin.simplecontactlist.adapters;
 
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,8 +25,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.mail.danilashamin.simplecontactlist.R;
 import ru.mail.danilashamin.simplecontactlist.http.contact.Contact;
-import ru.mail.danilashamin.simplecontactlist.view.PhotoShapeForm;
-import ru.mail.danilashamin.simplecontactlist.view.PhotoView;
+import ru.mail.danilashamin.simplecontactlist.view.BitmapMaskForm;
+import ru.mail.danilashamin.simplecontactlist.view.MaskedDrawableBitmap;
 
 /**
  * Created by Danil on 06.03.2018 on 1:27.
@@ -67,7 +69,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        holder.ivPhoto.setPhoto(((BitmapDrawable) resource).getBitmap(), PhotoShapeForm.getShapeForm(currentContact.getGender()));
+                        MaskedDrawableBitmap maskedBitmap = new MaskedDrawableBitmap();
+                        maskedBitmap.setPictureBitmap(((BitmapDrawable) resource.getCurrent()).getBitmap());
+                        maskedBitmap.setMaskBitmap(BitmapFactory.decodeResource(holder.itemView.getContext().getResources(),
+                                BitmapMaskForm.getMaskForm(currentContact.getGender()) == BitmapMaskForm.STAR ? R.drawable.star_mask : R.drawable.heart_mask));
+                        holder.ivPhoto.setImageDrawable(maskedBitmap);
                         return false;
                     }
                 }).submit();
@@ -85,7 +91,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @BindView(R.id.tvName)
         AppCompatTextView tvName;
         @BindView(R.id.ivPhoto)
-        PhotoView ivPhoto;
+        AppCompatImageView ivPhoto;
 
         ContactViewHolder(View itemView) {
             super(itemView);

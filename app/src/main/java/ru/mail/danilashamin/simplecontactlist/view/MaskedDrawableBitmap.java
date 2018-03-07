@@ -10,33 +10,30 @@ import android.graphics.PixelFormat;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
-/**
- * Created by Danil on 07.03.2018 on 0:01.
- */
-
-public class MaskedBitmap extends Drawable {
+public class MaskedDrawableBitmap extends Drawable{
 
     private Bitmap sourceBitmap;
     private Bitmap maskBitmap;
     private final Paint shaderPaint = new Paint();
-    private BitmapShader bitmapShader;
+    private BitmapShader shaderBitmap;
+
+
 
     public void setMaskBitmap(Bitmap maskBitmap) {
         this.maskBitmap = maskBitmap;
         updateScaleMatrix();
     }
 
-    public void setPictureBitmap(Bitmap sourceBitmap) {
-        this.sourceBitmap = sourceBitmap;
-        bitmapShader = new BitmapShader(sourceBitmap,
-                Shader.TileMode.REPEAT,
-                Shader.TileMode.REPEAT);
-        shaderPaint.setShader(bitmapShader);
+
+    public void setPictureBitmap(Bitmap src) {
+        sourceBitmap = src;
+        shaderBitmap = new BitmapShader(sourceBitmap,
+            Shader.TileMode.REPEAT,
+            Shader.TileMode.REPEAT);
+        shaderPaint.setShader(shaderBitmap);
         updateScaleMatrix();
     }
-
 
     @Override
     public void draw(@NonNull Canvas canvas) {
@@ -50,9 +47,9 @@ public class MaskedBitmap extends Drawable {
         if (sourceBitmap == null || maskBitmap == null) {
             return;
         }
+
         int maskW = maskBitmap.getWidth();
         int maskH = maskBitmap.getHeight();
-
         int sourceW = sourceBitmap.getWidth();
         int sourceH = sourceBitmap.getHeight();
 
@@ -64,8 +61,7 @@ public class MaskedBitmap extends Drawable {
         Matrix matrix = new Matrix();
         matrix.setScale(scale, scale);
         matrix.postTranslate((maskW - sourceW * scale) / 2f, (maskH - sourceH * scale) / 2f);
-        bitmapShader.setLocalMatrix(matrix);
-
+        shaderBitmap.setLocalMatrix(matrix);
     }
 
     @Override
@@ -74,8 +70,8 @@ public class MaskedBitmap extends Drawable {
     }
 
     @Override
-    public void setColorFilter(@Nullable ColorFilter colorFilter) {
-        shaderPaint.setColorFilter(colorFilter);
+    public void setColorFilter(ColorFilter cf) {
+        shaderPaint.setColorFilter(cf);
     }
 
     @Override

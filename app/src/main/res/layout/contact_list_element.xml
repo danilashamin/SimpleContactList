@@ -7,7 +7,7 @@
     android:orientation="horizontal"
     android:padding="10dp">
 
-    <ru.mail.danilashamin.simplecontactlist.view.PhotoView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/ivPhoto"
         android:layout_width="100dp"
         android:layout_height="100dp"

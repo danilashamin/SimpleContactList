@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Простой список контактов</string>
     <string name="load_contacts">Загрузить список контактов</string>
+    <string name="loading_error">К сожалению, не удалось загрузить список контактов с сервера. Попробуйте позже.</string>
 </resources>

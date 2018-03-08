@@ -11,7 +11,7 @@ import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 
-public class MaskedDrawableBitmap extends Drawable{
+public class MaskedDrawableBitmap extends Drawable {
 
     private Bitmap sourceBitmap;
     private Bitmap maskBitmap;
@@ -19,9 +19,8 @@ public class MaskedDrawableBitmap extends Drawable{
     private BitmapShader shaderBitmap;
 
 
-
     public void setMaskBitmap(Bitmap maskBitmap) {
-        this.maskBitmap = maskBitmap;
+        this.maskBitmap = maskBitmap.extractAlpha();
         updateScaleMatrix();
     }
 
@@ -29,8 +28,8 @@ public class MaskedDrawableBitmap extends Drawable{
     public void setPictureBitmap(Bitmap src) {
         sourceBitmap = src;
         shaderBitmap = new BitmapShader(sourceBitmap,
-            Shader.TileMode.REPEAT,
-            Shader.TileMode.REPEAT);
+                Shader.TileMode.REPEAT,
+                Shader.TileMode.REPEAT);
         shaderPaint.setShader(shaderBitmap);
         updateScaleMatrix();
     }

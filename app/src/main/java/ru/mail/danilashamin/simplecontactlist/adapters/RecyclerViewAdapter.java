@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
@@ -57,10 +56,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         Glide
                 .with(holder.itemView)
-                .load(currentContact.getPicture().getLarge())
-                .apply(new RequestOptions().
-                        placeholder(R.drawable.progress_animation).
-                        error(R.drawable.error))
+                .load(currentContact.getPicture().getLargePictureUrl())
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -72,7 +68,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         MaskedDrawableBitmap maskedBitmap = new MaskedDrawableBitmap();
                         maskedBitmap.setPictureBitmap(((BitmapDrawable) resource.getCurrent()).getBitmap());
                         maskedBitmap.setMaskBitmap(BitmapFactory.decodeResource(holder.itemView.getContext().getResources(),
-                                BitmapMaskForm.getMaskForm(currentContact.getGender()) == BitmapMaskForm.STAR ? R.drawable.star_mask : R.drawable.heart_mask).extractAlpha());
+                                BitmapMaskForm.getMaskForm(currentContact.getGender()) == BitmapMaskForm.STAR ? R.drawable.star_mask : R.drawable.heart_mask));
                         holder.ivPhoto.setImageDrawable(maskedBitmap);
                         return false;
                     }

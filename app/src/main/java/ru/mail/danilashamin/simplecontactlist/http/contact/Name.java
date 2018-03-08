@@ -15,26 +15,18 @@ public class Name {
     private String title;
 
     public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+        return wordWithFirstLetterUpperCase(lastName);
     }
 
     public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        return wordWithFirstLetterUpperCase(firstName);
     }
 
     public String getTitle() {
-        return title;
+        return wordWithFirstLetterUpperCase(title);
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    private String wordWithFirstLetterUpperCase(String word) {
+        return word.substring(0, 1).toUpperCase() + word.substring(1);
     }
 }

@@ -18,10 +18,6 @@ public class Contact {
         return picture;
     }
 
-    public void setPicture(Picture picture) {
-        this.picture = picture;
-    }
-
     public Name getName() {
         return name;
     }
@@ -34,7 +30,4 @@ public class Contact {
         return gender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
 }

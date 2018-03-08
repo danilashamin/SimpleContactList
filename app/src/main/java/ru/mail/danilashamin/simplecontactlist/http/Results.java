@@ -3,7 +3,7 @@ package ru.mail.danilashamin.simplecontactlist.http;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import ru.mail.danilashamin.simplecontactlist.contact.Contact;
 
@@ -14,9 +14,9 @@ import ru.mail.danilashamin.simplecontactlist.contact.Contact;
 public class Results {
     @Expose
     @SerializedName("results")
-    private List<Contact> results;
+    private ArrayList<Contact> results;
 
-    public List<Contact> getResults() {
+    public ArrayList<Contact> getResults() {
 
         return results;
     }

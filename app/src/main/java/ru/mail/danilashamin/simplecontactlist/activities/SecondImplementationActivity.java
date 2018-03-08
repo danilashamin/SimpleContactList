@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -31,6 +32,7 @@ import static ru.mail.danilashamin.simplecontactlist.C.API_BASE_URL;
 import static ru.mail.danilashamin.simplecontactlist.C.API_COUNT_OF_CONTACTS;
 import static ru.mail.danilashamin.simplecontactlist.C.API_INCLUDED;
 import static ru.mail.danilashamin.simplecontactlist.C.API_NO_INFO;
+import static ru.mail.danilashamin.simplecontactlist.C.SAVE_INSTANCE_STATE_CONTACT_LIST;
 
 public class SecondImplementationActivity extends AppCompatActivity {
 
@@ -42,6 +44,7 @@ public class SecondImplementationActivity extends AppCompatActivity {
 
     private RecyclerViewAdapter adapter;
     private RequestInterface requestInterface;
+    private ArrayList<Contact> contactList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +84,8 @@ public class SecondImplementationActivity extends AppCompatActivity {
         contacts.enqueue(new Callback<Results>() {
             @Override
             public void onResponse(@NonNull Call<Results> call, @NonNull Response<Results> response) {
-                onResponseSuccessful(response.body().getResults());
+                contactList = response.body().getResults();
+                updateContactListView(contactList);
             }
 
             @Override
@@ -91,7 +95,7 @@ public class SecondImplementationActivity extends AppCompatActivity {
         });
     }
 
-    private void onResponseSuccessful(List<Contact> contactList) {
+    private void updateContactListView(List<Contact> contactList) {
         pbLoading.setVisibility(View.INVISIBLE);
         adapter.setContactsList(contactList);
         adapter.notifyDataSetChanged();
@@ -104,5 +108,21 @@ public class SecondImplementationActivity extends AppCompatActivity {
         Log.d("failure", "Failed to load, error message: " + t.getMessage());
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (contactList != null) {
+            outState.putParcelableArrayList(SAVE_INSTANCE_STATE_CONTACT_LIST, contactList);
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null) {
+            contactList = savedInstanceState.getParcelableArrayList(SAVE_INSTANCE_STATE_CONTACT_LIST);
+            updateContactListView(contactList);
+        }
+    }
 
 }

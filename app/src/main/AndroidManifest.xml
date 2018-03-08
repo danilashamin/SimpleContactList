@@ -11,15 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FirstImplementation" />
-        <activity android:name=".SecondImplementation"></activity>
+        <activity android:name=".activities.FirstImplementation" />
+        <activity android:name=".activities.SecondImplementation" />
     </application>
 
 </manifest>

@@ -1,7 +1,9 @@
-package ru.mail.danilashamin.simplecontactlist;
+package ru.mail.danilashamin.simplecontactlist.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import ru.mail.danilashamin.simplecontactlist.R;
 
 public class FirstImplementation extends AppCompatActivity {
 

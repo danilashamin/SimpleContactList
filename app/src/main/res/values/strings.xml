@@ -2,4 +2,6 @@
     <string name="app_name">SimpleContactList</string>
     <string name="load_contacts">Load contact list</string>
     <string name="loading_error">Unfortunately, we could not load contact list from server. Try again later.</string>
+    <string name="first_implementation">First implementation</string>
+    <string name="second_implementation">Second implementation</string>
 </resources>

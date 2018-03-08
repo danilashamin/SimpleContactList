@@ -3,4 +3,6 @@
     <string name="app_name">Простой список контактов</string>
     <string name="load_contacts">Загрузить список контактов</string>
     <string name="loading_error">К сожалению, не удалось загрузить список контактов с сервера. Попробуйте позже.</string>
+    <string name="first_implementation">Первая реализация</string>
+    <string name="second_implementation">Вторая реализация</string>
 </resources>

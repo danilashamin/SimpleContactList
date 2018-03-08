@@ -2,15 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
-    <include
-        android:id="@+id/loadContactsButton"
-        layout="@layout/button_load" />
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/buttonFirstImplementation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/first_implementation" />
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/mainContactList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/buttonSecondImplementation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/second_implementation" />
 </LinearLayout>

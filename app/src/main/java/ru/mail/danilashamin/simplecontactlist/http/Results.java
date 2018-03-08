@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import ru.mail.danilashamin.simplecontactlist.http.contact.Contact;
+import ru.mail.danilashamin.simplecontactlist.contact.Contact;
 
 /**
  * Created by Danil on 06.03.2018 on 14:57.

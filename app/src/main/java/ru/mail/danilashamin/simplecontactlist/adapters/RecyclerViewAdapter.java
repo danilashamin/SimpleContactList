@@ -23,7 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.mail.danilashamin.simplecontactlist.R;
-import ru.mail.danilashamin.simplecontactlist.http.contact.Contact;
+import ru.mail.danilashamin.simplecontactlist.contact.Contact;
 import ru.mail.danilashamin.simplecontactlist.view.BitmapMaskForm;
 import ru.mail.danilashamin.simplecontactlist.view.MaskedDrawableBitmap;
 

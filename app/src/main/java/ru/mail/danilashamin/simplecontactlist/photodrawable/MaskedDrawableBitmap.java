@@ -1,4 +1,4 @@
-package ru.mail.danilashamin.simplecontactlist.view;
+package ru.mail.danilashamin.simplecontactlist.photodrawable;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

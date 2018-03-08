@@ -1,4 +1,4 @@
-package ru.mail.danilashamin.simplecontactlist.view;
+package ru.mail.danilashamin.simplecontactlist.photodrawable;
 
 import static ru.mail.danilashamin.simplecontactlist.C.MALE_GENDER;
 

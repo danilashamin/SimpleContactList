@@ -24,8 +24,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.mail.danilashamin.simplecontactlist.R;
 import ru.mail.danilashamin.simplecontactlist.contact.Contact;
-import ru.mail.danilashamin.simplecontactlist.view.BitmapMaskForm;
-import ru.mail.danilashamin.simplecontactlist.view.MaskedDrawableBitmap;
+import ru.mail.danilashamin.simplecontactlist.photodrawable.BitmapMaskForm;
+import ru.mail.danilashamin.simplecontactlist.photodrawable.MaskedDrawableBitmap;
 
 /**
  * Created by Danil on 06.03.2018 on 1:27.

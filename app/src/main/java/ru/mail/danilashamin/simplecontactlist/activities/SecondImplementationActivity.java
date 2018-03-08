@@ -1,7 +1,6 @@
 package ru.mail.danilashamin.simplecontactlist.activities;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,7 +28,7 @@ import ru.mail.danilashamin.simplecontactlist.http.RequestInterface;
 import ru.mail.danilashamin.simplecontactlist.http.Results;
 
 import static ru.mail.danilashamin.simplecontactlist.C.API_BASE_URL;
-import static ru.mail.danilashamin.simplecontactlist.C.API_COUNT_OF_CONTACTS;
+import static ru.mail.danilashamin.simplecontactlist.C.COUNT_OF_CONTACTS;
 import static ru.mail.danilashamin.simplecontactlist.C.API_INCLUDED;
 import static ru.mail.danilashamin.simplecontactlist.C.API_NO_INFO;
 import static ru.mail.danilashamin.simplecontactlist.C.SAVE_INSTANCE_STATE_CONTACT_LIST;
@@ -80,7 +79,7 @@ public class SecondImplementationActivity extends AppCompatActivity {
 
     private void loadContactsListFromServer() {
         pbLoading.setVisibility(View.VISIBLE);
-        Call<Results> contacts = requestInterface.contacts(API_COUNT_OF_CONTACTS, API_INCLUDED, API_NO_INFO);
+        Call<Results> contacts = requestInterface.contacts(COUNT_OF_CONTACTS, API_INCLUDED, API_NO_INFO);
         contacts.enqueue(new Callback<Results>() {
             @Override
             public void onResponse(@NonNull Call<Results> call, @NonNull Response<Results> response) {
@@ -121,7 +120,10 @@ public class SecondImplementationActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         if (savedInstanceState != null) {
             contactList = savedInstanceState.getParcelableArrayList(SAVE_INSTANCE_STATE_CONTACT_LIST);
-            updateContactListView(contactList);
+            if(contactList!=null) {
+                updateContactListView(contactList);
+
+            }
         }
     }
 

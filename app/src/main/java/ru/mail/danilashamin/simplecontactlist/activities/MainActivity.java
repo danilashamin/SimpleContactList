@@ -23,11 +23,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent;
         switch (view.getId()) {
             case R.id.buttonFirstImplementation:
-                intent = new Intent(this, FirstImplementation.class);
+                intent = new Intent(this, FirstImplementationActivity.class);
                 startActivity(intent);
                 break;
             case R.id.buttonSecondImplementation:
-                intent = new Intent(this, SecondImplementation.class);
+                intent = new Intent(this, SecondImplementationActivity.class);
                 startActivity(intent);
                 break;
         }

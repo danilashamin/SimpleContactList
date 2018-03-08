@@ -28,7 +28,7 @@ import static ru.mail.danilashamin.simplecontactlist.C.API_COUNT_OF_CONTACTS;
 import static ru.mail.danilashamin.simplecontactlist.C.API_INCLUDED;
 import static ru.mail.danilashamin.simplecontactlist.C.API_NO_INFO;
 
-public class SecondImplementation extends AppCompatActivity {
+public class SecondImplementationActivity extends AppCompatActivity {
 
     @BindView(R.id.mainContactList)
     RecyclerView mainContactList;
@@ -62,7 +62,7 @@ public class SecondImplementation extends AppCompatActivity {
             public void onResponse(@NonNull Call<Results> call, @NonNull Response<Results> response) {
                 pbLoading.setVisibility(View.INVISIBLE);
                 mainContactList.setHasFixedSize(true);
-                mLayoutManager = new LinearLayoutManager(SecondImplementation.this);
+                mLayoutManager = new LinearLayoutManager(SecondImplementationActivity.this);
                 mainContactList.setLayoutManager(mLayoutManager);
 
                 RecyclerViewAdapter adapter = new RecyclerViewAdapter(response.body().getResults());
@@ -72,7 +72,7 @@ public class SecondImplementation extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<Results> call, @NonNull Throwable t) {
                 pbLoading.setVisibility(View.INVISIBLE);
-                Toast.makeText(SecondImplementation.this, getString(R.string.loading_error), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SecondImplementationActivity.this, getString(R.string.loading_error), Toast.LENGTH_SHORT).show();
                 Log.d("failure", "Failed to load, error message: " + t.getMessage());
             }
         });

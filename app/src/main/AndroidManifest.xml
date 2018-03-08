@@ -18,8 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.FirstImplementation" />
-        <activity android:name=".activities.SecondImplementation" />
+        <activity android:name=".activities.FirstImplementationActivity" />
+        <activity android:name=".activities.SecondImplementationActivity" />
     </application>
 
 </manifest>

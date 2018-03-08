@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import retrofit2.Call;
@@ -25,7 +24,7 @@ import static ru.mail.danilashamin.simplecontactlist.C.API_COUNT_OF_CONTACTS;
 import static ru.mail.danilashamin.simplecontactlist.C.API_INCLUDED;
 import static ru.mail.danilashamin.simplecontactlist.C.API_NO_INFO;
 
-public class FirstImplementation extends AppCompatActivity {
+public class FirstImplementationActivity extends AppCompatActivity {
     private ProgressBar pbLoading;
     private RequestInterface requestInterface;
     private ListView contactListView;
@@ -53,7 +52,7 @@ public class FirstImplementation extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call<Results> call, @NonNull Response<Results> response) {
                         pbLoading.setVisibility(View.INVISIBLE);
-                        ListViewAdapter adapter = new ListViewAdapter(FirstImplementation.this, response.body().getResults());
+                        ListViewAdapter adapter = new ListViewAdapter(FirstImplementationActivity.this, response.body().getResults());
                         contactListView.setAdapter(adapter);
                         adapter.notifyDataSetInvalidated();
                     }
@@ -61,7 +60,7 @@ public class FirstImplementation extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Call<Results> call, @NonNull Throwable t) {
                         pbLoading.setVisibility(View.INVISIBLE);
-                        Toast.makeText(FirstImplementation.this, getString(R.string.loading_error), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(FirstImplementationActivity.this, getString(R.string.loading_error), Toast.LENGTH_SHORT).show();
                         Log.d("failure", "Failed to load, error message: " + t.getMessage());
                     }
                 });

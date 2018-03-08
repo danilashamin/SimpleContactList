@@ -12,4 +12,4 @@
 Для загрузки данных с API сервера и изображений использовались те же библиотеки, что и в первой реализации. 
 Для отображения списка используется RecyclerView.
 
-## В случае ошибки "Please select android SDK" необходимо проделать следующие действия: Tools -> Android -> Sync Project with Gradle Files
+## В случае ошибки "Please select android SDK" необходимо произвести синхронизацию с Gradle: Tools -> Android -> Sync Project with Gradle Files

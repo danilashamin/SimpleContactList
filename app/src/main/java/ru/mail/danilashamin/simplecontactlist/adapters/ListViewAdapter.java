@@ -33,10 +33,13 @@ public class ListViewAdapter extends BaseAdapter {
     private List<Contact> contactsList;
     private LayoutInflater inflater;
 
-    public ListViewAdapter(Context context, List<Contact> contactsList) {
+    public ListViewAdapter(Context context) {
         super();
-        this.contactsList = contactsList;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public void setContactsList(List<Contact> contactsList) {
+        this.contactsList = contactsList;
     }
 
     @Override
@@ -63,10 +66,20 @@ public class ListViewAdapter extends BaseAdapter {
 
         Contact currentContact = contactsList.get(position);
 
-        ((AppCompatTextView) view.findViewById(R.id.tvName)).setText(String.format("%s %s %s", currentContact.getName().getTitle(),
+        initName(view, currentContact);
+        initPhoto(view, currentContact);
+
+        return view;
+    }
+
+    private void initName(View view, Contact currentContact) {
+        ((AppCompatTextView) view.findViewById(R.id.tvName)).setText(String.format("%s %s %s",
+                currentContact.getName().getTitle(),
                 currentContact.getName().getFirstName(),
                 currentContact.getName().getLastName()));
+    }
 
+    private void initPhoto(View view, Contact currentContact) {
         final AppCompatImageView ivPhoto = view.findViewById(R.id.ivPhoto);
         final String gender = currentContact.getGender();
         Glide
@@ -88,7 +101,5 @@ public class ListViewAdapter extends BaseAdapter {
                         return false;
                     }
                 }).submit();
-        return view;
     }
-
 }

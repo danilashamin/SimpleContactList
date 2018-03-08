@@ -1,6 +1,7 @@
 package ru.mail.danilashamin.simplecontactlist.activities;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,6 +23,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.mail.danilashamin.simplecontactlist.R;
 import ru.mail.danilashamin.simplecontactlist.adapters.RecyclerViewAdapter;
+import ru.mail.danilashamin.simplecontactlist.contact.Contact;
 import ru.mail.danilashamin.simplecontactlist.http.RequestInterface;
 import ru.mail.danilashamin.simplecontactlist.http.Results;
 
@@ -33,10 +37,10 @@ public class SecondImplementationActivity extends AppCompatActivity {
     @BindView(R.id.mainContactList)
     RecyclerView mainContactList;
 
-    RecyclerView.LayoutManager mLayoutManager;
     @BindView(R.id.pbLoading)
     ProgressBar pbLoading;
 
+    private RecyclerViewAdapter adapter;
     private RequestInterface requestInterface;
 
     @Override
@@ -45,6 +49,24 @@ public class SecondImplementationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_second_implementation);
         ButterKnife.bind(this);
 
+        initView();
+        initServerRequestAPI();
+    }
+
+
+    private void initView() {
+        mainContactList.setHasFixedSize(true);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(SecondImplementationActivity.this);
+        mainContactList.setLayoutManager(mLayoutManager);
+        adapter = new RecyclerViewAdapter();
+    }
+
+    @OnClick(R.id.loadContactsButton)
+    public void onViewClicked() {
+        loadContactsListFromServer();
+    }
+
+    private void initServerRequestAPI() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -53,28 +75,34 @@ public class SecondImplementationActivity extends AppCompatActivity {
         requestInterface = retrofit.create(RequestInterface.class);
     }
 
-    @OnClick(R.id.loadContactsButton)
-    public void onViewClicked() {
+    private void loadContactsListFromServer() {
         pbLoading.setVisibility(View.VISIBLE);
         Call<Results> contacts = requestInterface.contacts(API_COUNT_OF_CONTACTS, API_INCLUDED, API_NO_INFO);
         contacts.enqueue(new Callback<Results>() {
             @Override
             public void onResponse(@NonNull Call<Results> call, @NonNull Response<Results> response) {
-                pbLoading.setVisibility(View.INVISIBLE);
-                mainContactList.setHasFixedSize(true);
-                mLayoutManager = new LinearLayoutManager(SecondImplementationActivity.this);
-                mainContactList.setLayoutManager(mLayoutManager);
-
-                RecyclerViewAdapter adapter = new RecyclerViewAdapter(response.body().getResults());
-                mainContactList.setAdapter(adapter);
+                onResponseSuccessful(response.body().getResults());
             }
 
             @Override
             public void onFailure(@NonNull Call<Results> call, @NonNull Throwable t) {
-                pbLoading.setVisibility(View.INVISIBLE);
-                Toast.makeText(SecondImplementationActivity.this, getString(R.string.loading_error), Toast.LENGTH_SHORT).show();
-                Log.d("failure", "Failed to load, error message: " + t.getMessage());
+                onResponseFailure(t);
             }
         });
     }
+
+    private void onResponseSuccessful(List<Contact> contactList) {
+        pbLoading.setVisibility(View.INVISIBLE);
+        adapter.setContactsList(contactList);
+        adapter.notifyDataSetChanged();
+        mainContactList.setAdapter(adapter);
+    }
+
+    private void onResponseFailure(Throwable t) {
+        pbLoading.setVisibility(View.INVISIBLE);
+        Toast.makeText(SecondImplementationActivity.this, getString(R.string.loading_error), Toast.LENGTH_SHORT).show();
+        Log.d("failure", "Failed to load, error message: " + t.getMessage());
+    }
+
+
 }

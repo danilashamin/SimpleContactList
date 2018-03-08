@@ -35,8 +35,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private List<Contact> contactList;
 
-    public RecyclerViewAdapter(List<Contact> contactList) {
+    public void setContactsList(List<Contact> contactList) {
         this.contactList = contactList;
+    }
+
+    static class ContactViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.tvName)
+        AppCompatTextView tvName;
+        @BindView(R.id.ivPhoto)
+        AppCompatImageView ivPhoto;
+
+        ContactViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
     }
 
     @NonNull
@@ -47,13 +60,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
+    public int getItemCount() {
+        return contactList.size();
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull final ContactViewHolder holder, int position) {
         final Contact currentContact = contactList.get(position);
+        initName(holder, currentContact);
+        initPhoto(holder, currentContact);
 
+    }
+
+    private void initName(final ContactViewHolder holder, final Contact currentContact) {
         holder.tvName.setText(String.format("%s %s %s", currentContact.getName().getTitle(),
                 currentContact.getName().getFirstName(),
                 currentContact.getName().getLastName()));
 
+    }
+
+    private void initPhoto(final ContactViewHolder holder, final Contact currentContact) {
         Glide
                 .with(holder.itemView)
                 .load(currentContact.getPicture().getLargePictureUrl())
@@ -74,26 +100,5 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     }
                 }).submit();
     }
-
-
-    @Override
-    public int getItemCount() {
-        return contactList.size();
-    }
-
-
-    static class ContactViewHolder extends RecyclerView.ViewHolder {
-
-        @BindView(R.id.tvName)
-        AppCompatTextView tvName;
-        @BindView(R.id.ivPhoto)
-        AppCompatImageView ivPhoto;
-
-        ContactViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-    }
-
 
 }
